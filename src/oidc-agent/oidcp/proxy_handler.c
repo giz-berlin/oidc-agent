@@ -8,8 +8,6 @@
 #include "utils/file_io/oidc_file_io.h"
 #include "utils/listUtils.h"
 #include "utils/stringUtils.h"
-#include "utils/logger.h"
-#include "utils/agentLogger.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -21,10 +19,6 @@ oidc_error_t updateRefreshToken(const char* shortname,
     return oidc_errno;
   }
   char*        password = getPasswordFor(shortname);
-  if (password == NULL) {
-    agent_log(DEBUG, "Skipping updating refresh token as no password is present.");
-    return OIDC_SUCCESS;
-  }
   oidc_error_t e =
       updateRefreshTokenUsingPassword(shortname, refresh_token, password);
   secFree(password);
